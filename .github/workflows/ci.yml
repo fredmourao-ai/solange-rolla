@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  static-smoke:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate JavaScript syntax
+        run: node --check app.js
+
+      - name: Start local static server
+        run: |
+          python3 -m http.server 4173 > server.log 2>&1 &
+          echo $! > server.pid
+
+      - name: Smoke test homepage
+        run: |
+          for i in 1 2 3 4 5; do
+            if curl -fsS http://127.0.0.1:4173/ > homepage.html; then
+              break
+            fi
+            sleep 2
+          done
+          grep -q "<title>Sistema Solange</title>" homepage.html
+          grep -q "Operacao, cliente e fiscal em um unico lugar." homepage.html
+          grep -q "app.js" homepage.html
+          grep -q "styles.css" homepage.html
+
+      - name: Smoke test static assets
+        run: |
+          curl -fsS http://127.0.0.1:4173/app.js | grep -q "const STORAGE_KEY = \"solange-mvp-v1\";"
+          curl -fsS http://127.0.0.1:4173/styles.css | grep -q "\.app-shell"
+
+      - name: Stop local static server
+        if: always()
+        run: |
+          if [ -f server.pid ]; then
+            kill "$(cat server.pid)" || true
+          fi
