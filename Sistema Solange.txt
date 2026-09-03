@@ -1,0 +1,23 @@
+Sistema Solange
+
+Registro dfe clientes 
+dados para nf
+data de nascimento
+email
+telefone
+contato emergência
+
+
+Nome 
+CPF
+Endereco
+
+Agenda
+
+Financeiro
+
+
+Calendário
+Eventos
+
+Emissão de NF

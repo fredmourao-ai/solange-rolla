@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema Solange</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <p class="eyebrow">Sistema Solange</p>
+          <h1>Operacao, cliente e fiscal em um unico lugar.</h1>
+          <p class="brand-text">
+            MVP local com agenda, clientes, financeiro, eventos, notas e trilha
+            de auditoria.
+          </p>
+        </div>
+
+        <nav class="nav-list" aria-label="Navegacao principal">
+          <button class="nav-item is-active" data-section-target="dashboard">Painel</button>
+          <button class="nav-item" data-section-target="clientes">Clientes</button>
+          <button class="nav-item" data-section-target="agenda">Agenda</button>
+          <button class="nav-item" data-section-target="financeiro">Financeiro</button>
+          <button class="nav-item" data-section-target="eventos">Eventos</button>
+          <button class="nav-item" data-section-target="fiscal">Fiscal</button>
+          <button class="nav-item" data-section-target="auditoria">Auditoria</button>
+        </nav>
+
+        <section class="sidebar-summary">
+          <div class="summary-card">
+            <span class="summary-label">Hoje</span>
+            <strong id="todayLabel"></strong>
+            <p id="sidebarAlert">Carregando status operacional...</p>
+          </div>
+        </section>
+      </aside>
+
+      <main class="workspace">
+        <header class="workspace-top">
+          <div>
+            <p class="eyebrow">Controle diario</p>
+            <h2>MVP local pronto para validacao funcional.</h2>
+          </div>
+          <div class="top-actions">
+            <button class="button button-secondary" id="seedButton" type="button">
+              Restaurar demo
+            </button>
+            <button class="button button-primary" id="exportButton" type="button">
+              Exportar JSON
+            </button>
+          </div>
+        </header>
+
+        <section class="section-pane is-visible" data-section="dashboard">
+          <div class="metric-grid" id="metricGrid"></div>
+
+          <div class="board-grid">
+            <article class="card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Janela do dia</p>
+                  <h3>Agenda critica</h3>
+                </div>
+                <span class="pill pill-alert">Monitorar</span>
+              </div>
+              <div class="timeline" id="timeline"></div>
+            </article>
+
+            <article class="card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Fila operacional</p>
+                  <h3>Pendencias por modulo</h3>
+                </div>
+              </div>
+              <div class="ops-list" id="opsList"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section-pane" data-section="clientes">
+          <div class="board-grid forms-grid">
+            <article class="card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Novo cliente</p>
+                  <h3>Cadastro principal</h3>
+                </div>
+              </div>
+              <form id="clientForm" class="form-grid">
+                <label>
+                  <span>Nome</span>
+                  <input name="name" type="text" maxlength="120" required />
+                </label>
+                <label>
+                  <span>CPF</span>
+                  <input name="cpf" type="text" maxlength="14" required />
+                </label>
+                <label>
+                  <span>Nascimento</span>
+                  <input name="birthDate" type="date" />
+                </label>
+                <label>
+                  <span>Email</span>
+                  <input name="email" type="email" />
+                </label>
+                <label>
+                  <span>Telefone</span>
+                  <input name="phone" type="text" maxlength="15" />
+                </label>
+                <label>
+                  <span>Endereco</span>
+                  <input name="address" type="text" maxlength="180" />
+                </label>
+                <label>
+                  <span>Contato emergencia</span>
+                  <input name="emergencyName" type="text" maxlength="120" />
+                </label>
+                <label>
+                  <span>Telefone emergencia</span>
+                  <input name="emergencyPhone" type="text" maxlength="15" />
+                </label>
+                <label class="full-span">
+                  <span>Observacoes</span>
+                  <textarea name="notes" rows="3" maxlength="240"></textarea>
+                </label>
+                <div class="form-actions full-span">
+                  <button class="button button-primary" type="submit">Salvar cliente</button>
+                </div>
+              </form>
+            </article>
+
+            <article class="card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Base de clientes</p>
+                  <h3>Cadastro vivo</h3>
+                </div>
+                <input id="clientSearch" class="search-input" type="search" placeholder="Buscar cliente" />
+              </div>
+              <div class="stack-list" id="clientList"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section-pane" data-section="agenda">
+          <div class="board-grid forms-grid">
+            <article class="card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Novo agendamento</p>
+                  <h3>Agenda operacional</h3>
+                </div>
+              </div>
+              <form id="appointmentForm" class="form-grid">
+                <label>
+                  <span>Cliente</span>
+                  <select name="clientId" id="appointmentClient" required></select>
+                </label>
+                <label>
+                  <span>Data</span>
+                  <input name="date" type="date" required />
+                </label>
+                <label>
+                  <span>Inicio</span>
+                  <input name="startTime" type="time" required />
+                </label>
+                <label>
+                  <span>Fim</span>
+                  <input name="endTime" type="time" required />
+                </label>
+                <label>
+                  <span>Status</span>
+                  <select name="status">
+                    <option value="confirmado">Confirmado</option>
+                    <option value="pendente">Pendente</option>
+                    <option value="cancelado">Cancelado</option>
+                    <option value="concluido">Concluido</option>
+                  </select>
+                </label>
+                <label class="full-span">
+                  <span>Observacoes</span>
+                  <textarea name="notes" rows="3" maxlength="220"></textarea>
+                </label>
+                <div class="form-actions full-span">
+                  <button class="button button-primary" type="submit">Salvar agenda</button>
+                </div>
+              </form>
+            </article>
+
+            <article class="card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Agenda</p>
+                  <h3>Proximos compromissos</h3>
+                </div>
+              </div>
+              <div class="stack-list" id="appointmentList"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section-pane" data-section="financeiro">
+          <div class="board-grid forms-grid">
+            <article class="card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Novo lancamento</p>
+                  <h3>Receita e cobranca</h3>
+                </div>
+              </div>
+              <form id="financeForm" class="form-grid">
+                <label>
+                  <span>Cliente</span>
+                  <select name="clientId" id="financeClient" required></select>
+                </label>
+                <label>
+                  <span>Descricao</span>
+                  <input name="description" type="text" maxlength="120" required />
+                </label>
+                <label>
+                  <span>Valor</span>
+                  <input name="amount" type="number" min="0" step="0.01" required />
+                </label>
+                <label>
+                  <span>Vencimento</span>
+                  <input name="dueDate" type="date" required />
+                </label>
+                <label>
+                  <span>Status</span>
+                  <select name="status">
+                    <option value="pendente">Pendente</option>
+                    <option value="pago">Pago</option>
+                    <option value="atrasado">Atrasado</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Categoria</span>
+                  <select name="category">
+                    <option value="atendimento">Atendimento</option>
+                    <option value="evento">Evento</option>
+                    <option value="pacote">Pacote</option>
+                  </select>
+                </label>
+                <div class="form-actions full-span">
+                  <button class="button button-primary" type="submit">Salvar financeiro</button>
+                </div>
+              </form>
+            </article>
+
+            <article class="card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Financeiro</p>
+                  <h3>Lancamentos recentes</h3>
+                </div>
+              </div>
+              <div class="stack-list" id="financeList"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section-pane" data-section="eventos">
+          <div class="board-grid forms-grid">
+            <article class="card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Novo evento</p>
+                  <h3>Calendario de grupo</h3>
+                </div>
+              </div>
+              <form id="eventForm" class="form-grid">
+                <label>
+                  <span>Titulo</span>
+                  <input name="title" type="text" maxlength="120" required />
+                </label>
+                <label>
+                  <span>Data</span>
+                  <input name="date" type="date" required />
+                </label>
+                <label>
+                  <span>Inicio</span>
+                  <input name="startTime" type="time" required />
+                </label>
+                <label>
+                  <span>Fim</span>
+                  <input name="endTime" type="time" required />
+                </label>
+                <label>
+                  <span>Local</span>
+                  <input name="location" type="text" maxlength="120" />
+                </label>
+                <label>
+                  <span>Capacidade</span>
+                  <input name="capacity" type="number" min="1" step="1" />
+                </label>
+                <div class="form-actions full-span">
+                  <button class="button button-primary" type="submit">Salvar evento</button>
+                </div>
+              </form>
+            </article>
+
+            <article class="card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Eventos</p>
+                  <h3>Calendario e ocupacao</h3>
+                </div>
+              </div>
+              <div class="stack-list" id="eventList"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section-pane" data-section="fiscal">
+          <div class="board-grid forms-grid">
+            <article class="card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Nova nota</p>
+                  <h3>Fluxo fiscal rastreavel</h3>
+                </div>
+              </div>
+              <form id="invoiceForm" class="form-grid">
+                <label>
+                  <span>Cliente</span>
+                  <select name="clientId" id="invoiceClient" required></select>
+                </label>
+                <label>
+                  <span>Numero</span>
+                  <input name="number" type="text" maxlength="30" required />
+                </label>
+                <label>
+                  <span>Valor</span>
+                  <input name="amount" type="number" min="0" step="0.01" required />
+                </label>
+                <label>
+                  <span>Status</span>
+                  <select name="status">
+                    <option value="emitida">Emitida</option>
+                    <option value="pendente">Pendente</option>
+                    <option value="rejeitada">Rejeitada</option>
+                  </select>
+                </label>
+                <label class="full-span">
+                  <span>Observacao</span>
+                  <textarea name="notes" rows="3" maxlength="220"></textarea>
+                </label>
+                <div class="form-actions full-span">
+                  <button class="button button-primary" type="submit">Salvar nota</button>
+                </div>
+              </form>
+            </article>
+
+            <article class="card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Fiscal</p>
+                  <h3>Notas registradas</h3>
+                </div>
+              </div>
+              <div class="stack-list" id="invoiceList"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section-pane" data-section="auditoria">
+          <div class="board-grid">
+            <article class="card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Trilha</p>
+                  <h3>Auditoria local do sistema</h3>
+                </div>
+              </div>
+              <div class="stack-list" id="auditList"></div>
+            </article>
+
+            <article class="card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Leitura tecnica</p>
+                  <h3>Observacoes do MVP</h3>
+                </div>
+              </div>
+              <div class="ops-list" id="systemNotes"></div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <template id="emptyStateTemplate">
+      <article class="empty-state">
+        <strong>Nada por aqui ainda.</strong>
+        <p>Use os formularios ao lado para criar os primeiros registros.</p>
+      </article>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

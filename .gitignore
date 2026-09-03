@@ -1,0 +1,9 @@
+Thumbs.db
+.DS_Store
+desktop.ini
+*.log
+*.tmp
+*.bak
+*.orig
+*.rej
+solange-export.json
