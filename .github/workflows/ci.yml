@@ -1,6 +1,7 @@
 name: CI
 
 on:
+  workflow_dispatch:
   push:
   pull_request:
 
@@ -16,6 +17,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+
+      - name: Validate workflow continuity contract
+        run: node tests/workflow-continuity.test.mjs
 
       - name: Validate JavaScript syntax
         run: node --check app.js
