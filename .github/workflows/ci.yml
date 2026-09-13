@@ -13,6 +13,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Validate agent continuity protocol
+        run: bash scripts/agent-continuity-validate.sh
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
