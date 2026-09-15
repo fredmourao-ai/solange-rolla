@@ -1,41 +1,50 @@
-# Sistema Solange
+# LEGADO — Solange Rolla MVP local
 
-MVP local funcional para operacao diaria, cadastro de clientes, agenda,
-financeiro, eventos, fiscal e trilha de auditoria.
+> **REPOSITÓRIO HISTÓRICO / SUPERSEDIDO — NÃO USAR PARA NOVO DESENVOLVIMENTO.**
+>
+> O projeto Solange Rolla ativo e canônico está em **`fredmourao-ai/solange-rolla-consultorio`**. Todo código novo, issue, auditoria, release, planejamento e operação deve ocorrer no repositório canônico.
 
-## Arquivos
+Este repositório preserva o primeiro MVP local do sistema Solange Rolla para fins de histórico e proveniência. Ele não representa o sistema atual e não deve ser usado como fonte de verdade de arquitetura, segurança, prontidão ou produção.
 
-- `AUDITORIA_SOLANGE.md`: reauditoria tecnica do estado atual e riscos residuais.
-- `ARQUITETURA_SOLANGE.md`: proposta estrutural do sistema.
-- `index.html`: interface principal do MVP local.
-- `styles.css`: identidade visual e layout responsivo.
-- `app.js`: logica do MVP, persistencia local, validacoes e renderizacao.
+## Estado deste repositório
 
-## Como executar
+- **Status:** legado/congelado.
+- **Desenvolvimento funcional:** proibido.
+- **Auditoria de prontidão:** não existe mais aqui; a issue #9 foi encerrada como duplicada/supersedida.
+- **Fonte canônica:** `fredmourao-ai/solange-rolla-consultorio`.
+- **Ledger de auditoria válido:** `fredmourao-ai/solange-rolla-consultorio/docs/quality/AUDIT_STATUS.md`.
+- **Governança da unificação:** `fredmourao-ai/solange-rolla-consultorio#147`.
 
-1. Entre em `C:\solange-rolla`.
-2. Rode `python -m http.server 4173`.
-3. Abra `http://127.0.0.1:4173/` no navegador.
+## O que este repositório contém
 
-Tambem e possivel abrir `index.html` diretamente, mas a validacao principal foi
-feita via `localhost`.
+O MVP histórico foi implementado em HTML/CSS/JavaScript com persistência em `localStorage` e serviu para validar conceitos iniciais de operação diária, clientes, agenda, financeiro, eventos, fiscal e trilha de auditoria.
 
-## O que ja existe
+Arquivos históricos preservados:
 
-- painel com metricas, agenda critica e alertas operacionais
-- cadastro de clientes com validacao de CPF duplicado
-- agenda com status de atendimento
-- financeiro com baixa operacional
-- eventos com capacidade e calendario
-- fiscal com notas e status de emissao
-- exportacao local em JSON
-- trilha de auditoria local
-- persistencia em `localStorage`
+- `AUDITORIA_SOLANGE.md`: auditoria técnica do MVP local e seus riscos residuais;
+- `ARQUITETURA_SOLANGE.md`: proposta arquitetural inicial;
+- `index.html`: interface principal do MVP local;
+- `styles.css`: identidade visual/layout do protótipo;
+- `app.js`: lógica do MVP, persistência local e validações.
 
-## Limites atuais
+Esses arquivos permanecem deliberadamente no histórico. Eles **não devem ser migrados para a aplicação moderna apenas por preservação**.
 
-- nao existe backend
-- nao existe autenticacao
-- nao existe integracao real com nota fiscal ou pagamento
-- dados sensiveis ainda ficam apenas no navegador
-- nao existe suporte multiusuario
+## Limitações históricas conhecidas
+
+O MVP não possui backend transacional, autenticação real, integração fiscal/pagamento real, suporte multiusuário, isolamento adequado de dados sensíveis ou backup/restore confiável. Por isso, ele nunca deve ser usado com dados reais nem como evidência de prontidão do sistema atual.
+
+## Continuidade do projeto
+
+Consulte o repositório canônico:
+
+**`fredmourao-ai/solange-rolla-consultorio`**
+
+A linhagem e a reconciliação entre este MVP e o sistema atual estão documentadas em:
+
+`docs/legacy/solange-rolla-mvp-lineage.md`
+
+no repositório canônico.
+
+## Regra final
+
+Qualquer nova tarefa funcional criada aqui deve ser interrompida e recriada no repositório canônico. Este repositório existe apenas para preservar histórico e proveniência.
