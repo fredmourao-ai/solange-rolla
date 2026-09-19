@@ -7,7 +7,7 @@ on:
 
 jobs:
   static-smoke:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, ARM64, solange-rolla-ci]
 
     steps:
       - name: Checkout
