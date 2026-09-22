@@ -1,0 +1,22 @@
+{
+  "schema": "AUDIT_PROJECT_REQUIREMENTS_V1",
+  "project": "fredmourao-ai/solange-rolla",
+  "policy_version": "2026-09-21-absolute-v5",
+  "required_invariants": [
+    {
+      "id": "SOLANGE_LEGACY_PROVENANCE_ONLY_V1",
+      "type": "evidence",
+      "description": "This legacy MVP repository is treated as historical provenance only and is not evidence of current consultorio production readiness."
+    },
+    {
+      "id": "SOLANGE_LEGACY_NO_PRODUCTION_AUTHORITY_V1",
+      "type": "evidence",
+      "description": "No active production responsibility, provider credential ownership or deploy authority may silently remain in the superseded repository."
+    },
+    {
+      "id": "SOLANGE_LEGACY_NO_CONCURRENT_RUNTIME_V1",
+      "type": "evidence",
+      "description": "No legacy worker, scheduler or service may execute concurrently with the canonical consultorio system."
+    }
+  ]
+}
