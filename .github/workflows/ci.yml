@@ -2,16 +2,18 @@ name: CI
 
 on:
   workflow_dispatch:
-  push:
   pull_request:
 
 jobs:
   static-smoke:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: [self-hosted, Linux, ARM64, solange-rolla-ci]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Validate agent continuity protocol
         run: bash scripts/agent-continuity-validate.sh
