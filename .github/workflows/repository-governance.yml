@@ -15,5 +15,19 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: Validate governance contract
-        run: bash scripts/repository-governance-validate.sh ci
+      - name: Validate superseded-repository containment
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          grep -Fq 'REPOSITÓRIO HISTÓRICO / SUPERSEDIDO' README.md
+          grep -Fq 'fredmourao-ai/solange-rolla-consultorio' README.md
+
+          for workflow in .github/workflows/ci.yml .github/workflows/repository-governance.yml; do
+            grep -Fq "github.event.pull_request.head.repo.full_name == github.repository" "$workflow"
+            if grep -Eq '^[[:space:]]*push:' "$workflow"; then
+              echo "automatic push trigger is forbidden on superseded repo: $workflow" >&2
+              exit 1
+            fi
+          done
+
+          echo LEGACY_SOLANGE_CONTAINMENT=PASS
