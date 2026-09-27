@@ -2,8 +2,6 @@ name: CI
 
 on:
   workflow_dispatch:
-  push:
-  pull_request:
 
 jobs:
   static-smoke:
@@ -12,6 +10,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Validate agent continuity protocol
         run: bash scripts/agent-continuity-validate.sh
