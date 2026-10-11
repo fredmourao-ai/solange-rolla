@@ -31,3 +31,6 @@ jobs:
           done
 
           echo LEGACY_SOLANGE_CONTAINMENT=PASS
+      - name: Validate absolute repository governance contract
+        shell: bash
+        run: bash scripts/repository-governance-validate.sh pr
