@@ -93,3 +93,34 @@ Se existir UI, o próprio agente executa E2E real no navegador gráfico no mesmo
 <!-- AUDIT_MERGE_ENFORCEMENT_V1 -->
 ## Enforcement absoluto de merge/main
 Para auditoria/aptidão, cumpra `docs/quality/AUDIT_MERGE_ENFORCEMENT_V1.md`. O gate local deve executar `scripts/absolute-audit-governance-validate.sh`, e todo push em `main`/`master` deve passar pelo **Absolute Audit Main Guard** com prova de PR mesclado.
+
+<!-- SHOPVIVALIZ_GRAPHICAL_SESSION_RECOVERY_V1 -->
+## Gate obrigatorio para todos os agentes: GUI ShopVivaliz e contas ChatGPT
+
+Antes de diagnosticar RustDesk, VM, autenticacao Dev/Atendimento ou classificar um login como perdido, **ler efetivamente no `main` de `Vivaliz-site/site-shopvivaliz`** o runbook `docs/knowledge/shopvivaliz-graphical-session-recovery.md`, junto de `AGENTS.md` e `docs/knowledge/browser-sessions.md`, registrando `rules_loaded` com SHAs. Esta regra aplica-se a ChatGPT, Claude, Gemini, Gepeto, subagentes e rotinas persistentes deste repositorio.
+
+Fatos observados em 2026-10-11: a area XFCE/RustDesk `fredconsole/:0` foi recuperada e mostrou Chromium ChatGPT no workspace Vivaliz com Dev e Atendimento no seletor; a tela LightDM `lightdm/:1` e login do **Ubuntu**, nao login ChatGPT; os perfis corporativos independentes permanecem no usuario `fredrdp`, display `:99`, Dev CDP9559 e Atendimento CDP9556. **Ver conta no seletor nao prova autenticacao individual**: exigir identidade exata em `/api/auth/session` no respectivo perfil antes de marcar `AUTHENTICATED`/`CONCLUIDO`. Nao reutilizar cookies entre perfis, nao destruir sessoes, nao solicitar senha ja provisionada e nao redefinir o GNOME Keyring por tentativa. Usar somente senha existente + TOTP oficial conforme preferencia atual do proprietario, respeitando etapas do provedor, MFA, lease e aprovacoes. Preservar checkpointer e monitor; `RUNNING` ate progresso real.
+<!-- /SHOPVIVALIZ_GRAPHICAL_SESSION_RECOVERY_V1 -->
+
+<!-- AUDIT_REMEDIATE_VALIDATE_GLOBAL_V1 -->
+## Auditoria corretiva obrigatória
+
+- Todo pedido de auditoria significa **investigar, corrigir, prevenir e validar**; não encerrar apenas relacionando erros.
+- Todo achado material corrigível e autorizado deve ter causa raiz investigada, correção aplicada, prevenção pertinente, teste e reauditoria.
+- Relatório, recomendação, plano ou issue são estados intermediários enquanto existir ação segura executável.
+- APTO/COMPROVADO/CONCLUIDO exigem evidência fresca pós-correção e E2E real quando aplicável; sem falso-verde.
+- Pendência só é aceitável após esgotar alternativas seguras, com evidência, causa e ação exata necessária para continuidade.
+- Fonte global: `REGRAS-AGENTES-CENTRALIZADAS.md`, policy `AUDIT_REMEDIATE_VALIDATE_GLOBAL_V1`.
+<!-- /AUDIT_REMEDIATE_VALIDATE_GLOBAL_V1 -->
+
+<!-- AUDIT_EXTERNAL_REMEDIATION_V1 -->
+> **AUDITORIA EXTERNA TAMBÉM É CORRETIVA:** auditoria interna, externa, independente, contraditória ou feita por outro agente/revisor segue o mesmo ciclo. Auditor externo com autorização deve corrigir, testar e reauditar. Se for read-only, o relatório não encerra: os achados corrigíveis seguem para executor autorizado e permanecem em andamento até correção + revalidação independente ou bloqueio externo comprovado.
+<!-- /AUDIT_EXTERNAL_REMEDIATION_V1 -->
+
+<!-- DIAGNOSTIC_REMEDIATE_VALIDATE_GLOBAL_V1 -->
+> **DIAGNÓSTICO É CORRETIVO EM QUALQUER TAREFA:** identificar a causa não conclui o trabalho. Todo agente/controlador deve continuar de defeito confirmado para **correção segura → prevenção pertinente → testes → validação real/E2E aplicável → revalidação**. Enquanto houver ação segura executável, o estado é `RUNNING`; `CONCLUIDO` exige evidência fresca pós-correção. Só `BLOCKED_EXTERNAL` comprovado, após esgotar alternativas autorizadas, permite encerrar sem corrigir.
+<!-- /DIAGNOSTIC_REMEDIATE_VALIDATE_GLOBAL_V1 -->
+
+<!-- GLOBAL_AUDIT_SIGNED_PARITY_REPAIR_V1 -->
+**Repositório histórico:** as rotinas de governança e os arquivos globais listados em `docs/quality/GLOBAL_AUDIT_MANIFEST.json` devem reproduzir integralmente as versões canônicas publicadas em `Vivaliz-site/-shopvivaliz-pipeline/main`. Divergência de hash, falta de marcador de entrada ou workflow que não execute `scripts/repository-governance-validate.sh ci` exige correção e nova validação real; nunca desativar o check. Esta regra preserva as normas locais específicas e a exigência de merge protegido.
+<!-- /GLOBAL_AUDIT_SIGNED_PARITY_REPAIR_V1 -->

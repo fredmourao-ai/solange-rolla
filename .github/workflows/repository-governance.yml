@@ -31,3 +31,8 @@ jobs:
           done
 
           echo LEGACY_SOLANGE_CONTAINMENT=PASS
+      - name: Validate absolute audit governance
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          bash scripts/repository-governance-validate.sh ci
