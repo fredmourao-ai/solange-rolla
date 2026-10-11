@@ -120,3 +120,7 @@ Fatos observados em 2026-10-11: a area XFCE/RustDesk `fredconsole/:0` foi recupe
 <!-- DIAGNOSTIC_REMEDIATE_VALIDATE_GLOBAL_V1 -->
 > **DIAGNÓSTICO É CORRETIVO EM QUALQUER TAREFA:** identificar a causa não conclui o trabalho. Todo agente/controlador deve continuar de defeito confirmado para **correção segura → prevenção pertinente → testes → validação real/E2E aplicável → revalidação**. Enquanto houver ação segura executável, o estado é `RUNNING`; `CONCLUIDO` exige evidência fresca pós-correção. Só `BLOCKED_EXTERNAL` comprovado, após esgotar alternativas autorizadas, permite encerrar sem corrigir.
 <!-- /DIAGNOSTIC_REMEDIATE_VALIDATE_GLOBAL_V1 -->
+
+<!-- GLOBAL_AUDIT_SIGNED_PARITY_REPAIR_V1 -->
+**Repositório histórico:** as rotinas de governança e os arquivos globais listados em `docs/quality/GLOBAL_AUDIT_MANIFEST.json` devem reproduzir integralmente as versões canônicas publicadas em `Vivaliz-site/-shopvivaliz-pipeline/main`. Divergência de hash, falta de marcador de entrada ou workflow que não execute `scripts/repository-governance-validate.sh ci` exige correção e nova validação real; nunca desativar o check. Esta regra preserva as normas locais específicas e a exigência de merge protegido.
+<!-- /GLOBAL_AUDIT_SIGNED_PARITY_REPAIR_V1 -->
